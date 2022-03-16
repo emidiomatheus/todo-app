@@ -7,6 +7,8 @@ export const Container = styled.div`
   margin-top: 4rem;
 
   span {
+    display: inline-block;
     font-weight: 600;
+    margin-bottom: 1.5rem;
   }
 `

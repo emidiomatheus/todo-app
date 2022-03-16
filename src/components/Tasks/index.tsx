@@ -6,6 +6,7 @@ export function Tasks() {
     <Container>
       <span>Tasks</span>
       <Task />
+      <Task />
     </Container>
   )
 }
