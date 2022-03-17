@@ -5,12 +5,14 @@ export const GlobalStyle = createGlobalStyle`
     --green: #0CCE6B;
     --red: #E83151;
     --yellow: #F0A202;
-
+    
     --text: #FFFFFF;
     --gray-900: #121212;
     --gray-800: #202021;
     --gray-500: #505050;
     --gray-300: #A5A5A5;
+    
+    --teal-700: #124559;
   }
 
   * {
@@ -27,5 +29,9 @@ export const GlobalStyle = createGlobalStyle`
 
   button {
     cursor: pointer;
+  }
+
+  :focus {
+    outline: 3px solid #EFF6EE;
   }
 `

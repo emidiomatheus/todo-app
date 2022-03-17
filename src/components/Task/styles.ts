@@ -27,7 +27,7 @@ export const Container = styled.div`
       background-color: var(--gray-800);
       padding: .5rem;
       border-radius: .5rem;
-      transition: filter .2s filter .4s;
+      transition: filter .2s;
 
       &:hover {
         filter: brightness(1.3)
