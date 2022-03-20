@@ -1,10 +1,10 @@
-import { MongoClient } from "mongodb";
+import { Db, MongoClient } from "mongodb";
 
 const uri = process.env.MONGODB_URI || "";
 const dbName = process.env.MONGODB_DB
 
 let cachedClient: any
-let cachedDb: any
+let cachedDb: Db
 
 if (!uri) {
   throw new Error(

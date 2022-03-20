@@ -1,43 +1,111 @@
 import type { GetStaticProps, NextPage } from 'next'
-import { IconContext } from 'react-icons'
+import { useEffect, useState } from 'react'
+import ReactModal from 'react-modal'
 import { Header } from '../components/Header'
+import { ModalAddTask } from '../components/ModalAddTask'
 import { Summary } from '../components/Summary'
-import { Tasks } from '../components/Tasks'
+import { Task } from '../components/Task'
+import { TaskList } from '../components/TaskList'
+import { api } from '../services/api'
 import { GlobalStyle } from '../styles/global'
 import { connectToDatabase } from '../utils/mongodb'
 
-const Home: NextPage = ({ tasks }) => {
+ReactModal.setAppElement("#__next")
+
+interface TaskType {
+  _id: string;
+  title: string;
+  date: string;
+  type: 'important' | 'urgent' | 'circumstantial';
+  isFinished: boolean;
+}
+
+interface HomeProps {
+  data: TaskType[]
+}
+
+const Home: NextPage<HomeProps> = ({ data }: HomeProps) => {
+  const [tasks, setTasks] = useState<TaskType[]>([])
+  const [editingTask, setEditingTask] = useState({} as TaskType)
+  const [isModalAddOpen, setIsModalAddOpen] = useState(false)
+  const [isModalEditOpen, setIsModalEditOpen] = useState(false)
+  const [isModalDeleteOpen, setIsModalDeleteOpen] = useState(false)
+  const [deletingTask, setDeletingTask] = useState('')
+
+  useEffect(() => {
+    setTasks(data)
+  }, [])
+
+  async function handleAddTask(task: TaskType) {
+    const response = await api.post('/tasks/new', {
+      ...task,
+      isFinished: false,
+    })
+    setTasks([...tasks, response.data])
+  }
+
+  async function handleEditTask() {
+    
+  }
+
+  function toggleDeleteModal(id: string) {
+    setIsModalDeleteOpen(!isModalDeleteOpen)
+  }
+
+  async function handleDelete(id: string) {
+    await api.delete(`/tasks/${id}`)
+
+    const tasksFiltered = tasks.filter(task => task._id !== id)
+
+    setTasks(tasksFiltered)
+  }
+
+  function toggleModal() {
+    setIsModalAddOpen(!isModalAddOpen)
+  }
+
   return (
-    <IconContext.Provider value={{ color: 'var(--gray-300)', size: '1.5rem' }}>
+    <>
       <Header />
       <main>
-        {/* <ul>
-          {movies.map(movie => (
-            <li key={movie._id}>
-              <h2>{movie.teste}</h2>
-            </li>
-          ))}
-        </ul> */}
         <Summary />
-        <Tasks />
+        <TaskList openModal={toggleModal}>
+          {tasks && tasks.map(task => (
+            <Task
+              key={task._id}
+              task={task}
+              handleDelete={handleDelete}
+              handleEditTask={handleEditTask}
+            />
+          ))}
+        </TaskList>
       </main>
+        <ModalAddTask
+          isOpen={isModalAddOpen}
+          setIsOpen={toggleModal}
+          handleAddTask={handleAddTask}
+        />
+        {/* <DeleteTaskModal
+          isOpen={isModalDeleteOpen}
+          setIsOpen={toggleDeleteModal}
+          handleDelete={handleDelete}
+        /> */}
       <GlobalStyle /> 
-    </IconContext.Provider>
+    </>
   )
 }
 
+export default Home
+
 export const getStaticProps: GetStaticProps = async () => {
-  const { db, client } = await connectToDatabase()
+  const { db } = await connectToDatabase()
+  const data = await db.collection('tasks').find({}).toArray()
 
-  const tasks = await db.collection('tasks').find({}).toArray()
+  const tasks = JSON.parse(JSON.stringify(data))
 
-  console.log(tasks)
-  
   return {
     props: {
-      tasks: JSON.parse(JSON.stringify(tasks))
+      data: tasks
     }
   }
 }
-
-export default Home
