@@ -1,3 +1,5 @@
+import { format } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 import type { GetStaticProps, NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import ReactModal from 'react-modal'
@@ -68,7 +70,7 @@ const Home: NextPage<HomeProps> = ({ data }: HomeProps) => {
     <>
       <Header />
       <main>
-        <Summary />
+        <Summary tasks={tasks} />
         <TaskList openModal={toggleModal}>
           {tasks && tasks.map(task => (
             <Task
@@ -101,11 +103,21 @@ export const getStaticProps: GetStaticProps = async () => {
   const { db } = await connectToDatabase()
   const data = await db.collection('tasks').find({}).toArray()
 
-  const tasks = JSON.parse(JSON.stringify(data))
+  const tasks: TaskType[] = JSON.parse(JSON.stringify(data))
+
+  const parsedTasks = tasks.map(task => {
+    return { 
+      _id: task._id,
+      title: task.title,
+      date: format(new Date(task.date), 'dd MMM yyyy', {locale: ptBR}),
+      type: task.type,
+      isFinished: task.isFinished
+    }
+  })
 
   return {
     props: {
-      data: tasks
+      data: parsedTasks
     }
   }
 }
