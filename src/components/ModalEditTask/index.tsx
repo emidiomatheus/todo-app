@@ -1,5 +1,5 @@
 import { FormHandles, SubmitHandler } from '@unform/core';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Input from '../Input';
 import { Modal } from '../Modal';
 import { Form, RadioBox, TransactionTypeContainer } from './styles';
@@ -13,28 +13,32 @@ interface FormData {
   isFinished: boolean;
 }
 
-interface ModalAddTaskProps {
+interface ModalEditTaskProps {
   isOpen: boolean;
   setIsOpen: () => void;
-  handleAddTask: (data: FormData) => void;
+  editingTask: FormData;
+  handleUpdateTask: (data: FormData) => void;
 }
 
-export function ModalAddTask({ isOpen, setIsOpen, handleAddTask }: ModalAddTaskProps) {
+export function ModalEditTask({ isOpen, setIsOpen, editingTask, handleUpdateTask }: ModalEditTaskProps) {
   const formRef = useRef<FormHandles>(null)
-  const [type, setType] = useState<'important' | 'urgent' | 'circumstantial'>('important')
+  const [type, setType] = useState<'important' | 'urgent' | 'circumstantial'>(editingTask.type)
 
+  useEffect(() => {
+    setType(editingTask.type)
+  }, [editingTask])
+  
   const handleSubmit: SubmitHandler<FormData> = data => {
     const task = {...data, type}
-    
-    handleAddTask(task);
+
+    handleUpdateTask(task);
     setIsOpen()
-    setType('important')
   }
   
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-      <Form ref={formRef} onSubmit={handleSubmit}>
-        <h2>Adicionar tarefa</h2>
+      <Form ref={formRef} onSubmit={handleSubmit} initialData={editingTask}>
+        <h2>Editar tarefa</h2>
         <Input
           name="title"
           type="text"
@@ -75,7 +79,7 @@ export function ModalAddTask({ isOpen, setIsOpen, handleAddTask }: ModalAddTaskP
 
         <div className="buttons">
           <button type="button" onClick={setIsOpen}>Cancelar</button>
-          <button type="submit">Adicionar</button>
+          <button type="submit">Salvar alterações</button>
         </div>
       </Form>
     </Modal>

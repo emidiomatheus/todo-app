@@ -11,11 +11,11 @@ export const Container = styled.div`
     justify-content: space-between;
 
     margin-bottom: 1.5rem;
+  }
 
-    > span {
-      display: inline-block;
-      font-weight: 600;
-    }
+  span {
+    display: inline-block;
+    font-weight: 600;
   }
 `
 

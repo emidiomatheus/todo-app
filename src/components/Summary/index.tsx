@@ -12,13 +12,14 @@ interface TaskType {
   isFinished: boolean;
 }
 
+interface SummaryProps {
+  tasks: TaskType[];
+  finishedTasks: TaskType[];
+}
+
 const Chart = dynamic(() => import('react-apexcharts'), {
   ssr: false,
 })
-
-interface SummaryProps {
-  tasks: TaskType[];
-}
 
 const options: ApexOptions = {
   legend: {
@@ -58,9 +59,9 @@ const options: ApexOptions = {
   },
 }
 
-export function Summary({ tasks }: SummaryProps) {
+export function Summary({ tasks, finishedTasks }: SummaryProps) {
   const totalCountTasks = tasks.length
-  const finishedTasks = tasks.filter(task => task.isFinished === true ).length
+  const totalFinishedTasks = finishedTasks.length
   const notFinishedTasks = tasks.filter(task => task.isFinished === false ).length
 
   const importantTasks = tasks.filter(task => task.type === 'important').length
@@ -72,7 +73,7 @@ export function Summary({ tasks }: SummaryProps) {
   return (
     <Container>
       <div className="cards" >
-        <Card title="Tarefas concluídas" metrics={finishedTasks} />
+        <Card title="Tarefas concluídas" metrics={totalFinishedTasks} />
         <Card title="Tarefas não concluídas" metrics={notFinishedTasks} />
         <Card title="Visão geral">
           <Chart options={options} series={series} type="donut" />

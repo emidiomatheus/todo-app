@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
 import { FiCheck, FiEdit, FiTrash } from "react-icons/fi";
 import { Container } from "./styles";
 
@@ -11,11 +13,12 @@ interface TaskType {
 
 interface TaskProps {
   task: TaskType;
-  handleDelete: (id: string) => void;
+  markAsFinished: (id: string) => void;
+  handleDelete: (id: string, isFinished: boolean) => void;
   handleEditTask: (task: TaskType) => void;
 }
 
-export function Task({ task, handleDelete, handleEditTask }: TaskProps) {
+export function Task({ task, markAsFinished, handleDelete, handleEditTask }: TaskProps) {
 
   const typeText = {
     important: 'Importante',
@@ -27,24 +30,24 @@ export function Task({ task, handleDelete, handleEditTask }: TaskProps) {
     handleEditTask(task)
   }
 
-  function handleDeleteTask(id: string) {
-    handleDelete(id)
+  function handleDeleteTask(id: string, isFinished: boolean) {
+    handleDelete(id, isFinished)
   }
   
   return (
     <Container type={task.type}>
       <p className="title">{task.title}</p>
-      <time>{task.date}</time>
+      <time>{format(new Date(task.date), 'dd MMM yyyy', {locale: ptBR})}</time>
       <span>{typeText[task.type]}</span>
       <div className="actions">
-        <i>
-          <FiCheck aria-label="Marcar tarefa como concluída" title="Marcar tarefa como concluída" />
+        <i onClick={() => markAsFinished(task._id)} aria-label="Marcar tarefa como concluída" title="Marcar tarefa como concluída">
+          <FiCheck />
         </i>
-        <i onClick={() => setEditingTask(task)}>
-          <FiEdit aria-label="Editar tarefa" title="Editar tarefa" />
+        <i onClick={() => setEditingTask(task)} aria-label="Editar tarefa" title="Editar tarefa" >
+          <FiEdit />
         </i>
-        <i onClick={() => handleDeleteTask(task._id)}>
-          <FiTrash aria-label="Exluir tarefa" title="Excluir tarefa" />
+        <i onClick={() => handleDeleteTask(task._id, task.isFinished)} aria-label="Exluir tarefa" title="Excluir tarefa">
+          <FiTrash />
         </i>
       </div>
     </Container>
