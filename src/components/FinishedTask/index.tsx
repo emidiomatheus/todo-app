@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+import { ptBR } from "date-fns/locale";
 import { FiTrash } from "react-icons/fi";
 import { Container } from "./styles";
 
@@ -26,11 +28,13 @@ export function FinishedTask({ task, handleDelete }: TaskProps) {
   function handleDeleteTask(id: string, isFinished: boolean) {
     handleDelete(id, isFinished)
   }
+
+  const formattedDate = format(new Date(task.date), 'dd MMM yyyy', {locale: ptBR})
   
   return (
     <Container type={task.type} >
       <p className="title">{task.title}</p>
-      <time>{task.date}</time>
+      <time>{formattedDate}</time>
       <span>{typeText[task.type]}</span>
       <div className="actions">
         <i onClick={() => handleDeleteTask(task._id, task.isFinished)}>

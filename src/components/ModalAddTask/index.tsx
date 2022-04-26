@@ -1,9 +1,9 @@
-import { FormHandles, SubmitHandler } from '@unform/core';
-import { useRef, useState } from 'react';
-import Input from '../Input';
+import { useSession } from 'next-auth/react';
+import { useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { Input } from '../Input';
 import { Modal } from '../Modal';
 import { Form, RadioBox, TransactionTypeContainer } from './styles';
-
 
 interface FormData {
   _id: string;
@@ -11,6 +11,7 @@ interface FormData {
   date: string;
   type: 'important' | 'urgent' | 'circumstantial';
   isFinished: boolean;
+  userId: string;
 }
 
 interface ModalAddTaskProps {
@@ -20,29 +21,34 @@ interface ModalAddTaskProps {
 }
 
 export function ModalAddTask({ isOpen, setIsOpen, handleAddTask }: ModalAddTaskProps) {
-  const formRef = useRef<FormHandles>(null)
   const [type, setType] = useState<'important' | 'urgent' | 'circumstantial'>('important')
+  const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormData>()
+  const { data: session } = useSession()
+  const userId = session?.user.id || ""
 
-  const handleSubmit: SubmitHandler<FormData> = data => {
-    const task = {...data, type}
+  const handleCreateTask: SubmitHandler<FormData> = data => {
+    const task = {...data, type, userId}
     
     handleAddTask(task);
     setIsOpen()
     setType('important')
+    reset()
   }
   
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-      <Form ref={formRef} onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit(handleCreateTask)}>
         <h2>Adicionar tarefa</h2>
         <Input
-          name="title"
+          label="Título"
+          {...register('title')}
           type="text"
           placeholder="Nome da tarefa"
         />
 
         <Input
-          name="date"
+          label="Data"
+          {...register('date')}
           type="date"
         />
 

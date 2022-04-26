@@ -13,10 +13,10 @@ const color = {
 export const Container = styled.div<ContainerProps>`
   width: 100%;
   max-width: 1048px;
-  background-color: var(--gray-800);
+  background-color: ${props => props.theme.colors.terciary};
   
   padding: 1rem 2rem;
-  border-radius: .5rem;
+  border-radius: .25rem;
   border-left: .5rem solid;
   border-left-color: ${props => color[props.type]};
 
@@ -33,7 +33,7 @@ export const Container = styled.div<ContainerProps>`
   }
 
   time {
-    color: var(--gray-300);
+    color: ${props => props.theme.colors.gray[300]};
     text-transform: capitalize;
   }
 
@@ -52,9 +52,9 @@ export const Container = styled.div<ContainerProps>`
 
     > i {
       cursor: pointer;
-      background-color: var(--gray-800);
+      background-color: ${props => props.theme.colors.terciary};
       padding: .5rem;
-      border-radius: .5rem;
+      border-radius: .25rem;
       transition: filter .2s;
 
       &:hover {

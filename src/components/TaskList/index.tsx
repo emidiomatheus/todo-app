@@ -12,9 +12,9 @@ export function TaskList({ children , openModal }: TasksProps) {
   return (
     <Container>
       <div className="header">
-        <span>Tasks</span>
+        <span>Tarefas</span>
         <NewTaskButton onClick={openModal}>
-            New
+            Nova tarefa
           <FiPlus color="#fff" />
         </NewTaskButton>
       </div>

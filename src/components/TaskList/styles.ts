@@ -24,15 +24,14 @@ export const NewTaskButton = styled.button`
   align-items: center;
   gap: 1rem;
 
-  background-color: var(--yellow);
-  color: var(--text);
+  background-color: ${props => props.theme.colors.primary};
+  color: ${props => props.theme.colors.text};
   font-weight: 600;
   font-size: 1rem;
   line-height: .75;
   border: none;
-  max-width: 8rem;
   max-height: 8rem;
-  border-radius: .5rem;
+  border-radius: .25rem;
   padding: .8rem 1.5rem;
 
   transition: filter .2s ease-out;

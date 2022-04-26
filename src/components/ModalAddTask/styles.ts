@@ -1,51 +1,23 @@
-import { Form as Unform } from '@unform/web';
 import { darken, transparentize } from "polished";
 import styled from "styled-components";
 
-export const Form = styled(Unform)`
+export const Form = styled.form`
   h2 {
-      color: var(--text-title);
+      color: ${props => props.theme.colors.text};
       font-size: 1.5rem;
       margin-bottom: 2rem;
     }
-
-  input {
-    width: 100%;
-    padding: 0 1.5rem;
-    height: 4rem;
-    border-radius: 0.5rem;
-    border: 2px solid var(--gray-400);
-    background: var(--gray-800);
-    color: var(--text);
-    font-weight: 400;
-    font-size: 1rem;
-
-    &::placeholder {
-      color: var(--gray-400);
-      font-weight: 600;
-      font-size: .9rem;
-    }
-
-    &:focus {
-      outline: 0;
-      border-color: var(--gray-300)
-    }
-
-    & + input {
-      margin-top: 1rem;
-    }
-  }
 
   .buttons {
     margin-top: 1.5rem;
     
     button {
-    color: var(--text);
+    color: ${props => props.theme.colors.text};
     font-size: 1rem;
     border: 0;
     height: 3rem;
     padding: 0 2em;
-    border-radius: .5rem;
+    border-radius: .25rem;
   }
 
   button + button {
@@ -53,16 +25,16 @@ export const Form = styled(Unform)`
   }
 
   button[type="button"] {
-    background-color: var(--gray-400);
+    background-color: ${props => props.theme.colors.gray[400]};
     transition: background-color .2s;
 
     &:hover {
-      background-color: var(--gray-500)
+      background-color: ${props => props.theme.colors.gray[500]}
     }
   }
 
   button[type="submit"] {
-    background-color: var(--yellow);
+    background-color: ${props => props.theme.colors.primary};
     transition: filter .2s;
 
     &:hover {
@@ -92,8 +64,8 @@ const colors = {
 
 export const RadioBox = styled.button<RadioBoxProps>`
   height: 4rem;
-  border: 1px solid var(--gray-500);
-  border-radius: 0.5rem;
+  border: 1px solid ${props => props.theme.colors.gray[500]};
+  border-radius: 0.25rem;
   
   background: ${(props) => props.isActive
     ? transparentize(0.9, colors[props.activeColor])
@@ -119,6 +91,6 @@ export const RadioBox = styled.button<RadioBoxProps>`
     display: inline-block;
     font-size: .9rem;
     font-weight: 600;
-    color: var(--text)
+    color: ${props => props.theme.colors.text}
   }
 `

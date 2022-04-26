@@ -11,8 +11,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         title: req.body.title,
         date: req.body.date,
         type: req.body.type,
+        userId: req.body.userId,
         isFinished: false,
       }
+      
       await db.collection('tasks').replaceOne(
         { _id: new ObjectId(id) },
         data

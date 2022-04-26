@@ -6,7 +6,7 @@ export const Container = styled.div`
   align-items: center;
 
   h2 {
-      color: var(--text-title);
+      color: ${props => props.theme.colors.text};
       font-size: 1.5rem;
       margin-bottom: 2rem;
   }
@@ -22,7 +22,7 @@ export const ButtonsContainer = styled.div`
 `
 
 export const Button = styled.div`
-  background-color: var(--gray-500);
+  background-color: ${props => props.theme.colors.gray[500]};
   padding: 1rem 2rem;
   border-radius: .5rem;
   cursor: pointer;
@@ -34,5 +34,5 @@ export const Button = styled.div`
 `
 
 export const DeleteButton = styled(Button)`
-  background-color: var(--red)
+  background-color: ${props => props.theme.colors.red}
 `

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background-color: var(--gray-800);
+  background-color: ${props => props.theme.colors.terciary};
   padding: 1.5rem;
-  border-radius: 8px;
+  border-radius: .25rem;
   width: 100%;
   min-height: 11rem;
 

@@ -1,9 +1,9 @@
-import { FormHandles, SubmitHandler } from '@unform/core';
-import { useEffect, useRef, useState } from 'react';
-import Input from '../Input';
+import { useSession } from 'next-auth/react';
+import { useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { Input } from '../Input';
 import { Modal } from '../Modal';
 import { Form, RadioBox, TransactionTypeContainer } from './styles';
-
 
 interface FormData {
   _id: string;
@@ -11,6 +11,7 @@ interface FormData {
   date: string;
   type: 'important' | 'urgent' | 'circumstantial';
   isFinished: boolean;
+  userId: string;
 }
 
 interface ModalEditTaskProps {
@@ -21,33 +22,39 @@ interface ModalEditTaskProps {
 }
 
 export function ModalEditTask({ isOpen, setIsOpen, editingTask, handleUpdateTask }: ModalEditTaskProps) {
-  const formRef = useRef<FormHandles>(null)
   const [type, setType] = useState<'important' | 'urgent' | 'circumstantial'>(editingTask.type)
+
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>()
+  const {data: session} = useSession()
+  const userId = session?.user.id || ""
 
   useEffect(() => {
     setType(editingTask.type)
   }, [editingTask])
   
-  const handleSubmit: SubmitHandler<FormData> = data => {
-    const task = {...data, type}
-
+  const handleEditTask: SubmitHandler<FormData> = data => {
+    const task = {...data, type, userId}
     handleUpdateTask(task);
     setIsOpen()
   }
   
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-      <Form ref={formRef} onSubmit={handleSubmit} initialData={editingTask}>
+      <Form onSubmit={handleSubmit(handleEditTask)}>
         <h2>Editar tarefa</h2>
         <Input
-          name="title"
+          label="Título"
+          {...register('title')}
           type="text"
           placeholder="Nome da tarefa"
+          defaultValue={editingTask.title}
         />
 
         <Input
-          name="date"
+          label="Data"
+          {...register("date")}
           type="date"
+          defaultValue={editingTask.date}
         />
 
         <TransactionTypeContainer>

@@ -23,8 +23,8 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    background-color: var(--gray-900);
-    color: #fff;
+    background-color: ${props => props.theme.colors.background};
+    color: ${props => props.theme.colors.text};
     font-family: 'Inter', sans-serif;
   }
 
@@ -52,7 +52,7 @@ export const GlobalStyle = createGlobalStyle`
     outline: 0;
 		width: 100%;
 		max-width: 760px;
-		background: var(--gray-900);
+		background: ${props => props.theme.colors.background};
 		padding: 3rem;
 		position: relative;
 		border-radius: 0.5rem;

@@ -16,7 +16,7 @@ interface Props {
 type RadioBoxProps = JSX.IntrinsicElements['div'] & Props
 export const RadioBoxType = styled.div<RadioBoxProps>`
   height: 4rem;
-  border: 1px solid var(--gray-500);
+  border: 1px solid ${props => props.theme.colors.gray[500]};
   border-radius: 0.5rem;
   cursor: pointer;
   
@@ -39,6 +39,6 @@ export const RadioBoxType = styled.div<RadioBoxProps>`
     display: inline-block;
     font-size: .9rem;
     font-weight: 600;
-    color: var(--text)
+    color: ${props => props.theme.colors.text}
   }
 `
