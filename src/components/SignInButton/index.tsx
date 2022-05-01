@@ -14,6 +14,7 @@ export function SignInButton({children}: SignInButtonProps) {
   function handleSignIn() {
     if (session) {
       router.push('/dashboard')
+      return;
     }
 
     signIn('google', {callbackUrl: 'http://localhost:3000/dashboard'})
@@ -22,5 +23,6 @@ export function SignInButton({children}: SignInButtonProps) {
   return (
     <Box type="button" onClick={handleSignIn}>
       {children}
-    </Box>  )
+    </Box>  
+  )
 }

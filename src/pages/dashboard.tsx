@@ -37,8 +37,6 @@ const Dashboard: NextPage<DashboardProps> = ({ data, session }: DashboardProps) 
   const [isModalAddOpen, setIsModalAddOpen] = useState(false)
   const [isModalEditOpen, setIsModalEditOpen] = useState(false)
 
-  console.log(session)
-
   useEffect(() => {    
     const filteredFinishedTasks = data.filter(task => task.isFinished === true)
     const filteredTasks = data.filter(task => task.isFinished !== true)
