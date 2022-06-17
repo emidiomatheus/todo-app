@@ -1,6 +1,8 @@
+import { yupResolver } from '@hookform/resolvers/yup';
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import * as yup from 'yup';
 import { Input } from '../Input';
 import { Modal } from '../Modal';
 import { Form, RadioBox, TransactionTypeContainer } from './styles';
@@ -20,9 +22,16 @@ interface ModalAddTaskProps {
   handleAddTask: (data: FormData) => void;
 }
 
+const schema = yup.object({
+  title: yup.string().required('Insira um título'),
+  date: yup.date().required('Insira uma data').min(new Date(), 'A data não pode ser anterior a hoje').typeError('Insira uma data'),
+})
+
 export function ModalAddTask({ isOpen, setIsOpen, handleAddTask }: ModalAddTaskProps) {
   const [type, setType] = useState<'important' | 'urgent' | 'circumstantial'>('important')
-  const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormData>()
+  const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormData>({
+    resolver: yupResolver(schema)
+  })
   const { data: session } = useSession()
   const userId = session?.user.id || ""
 
@@ -44,12 +53,14 @@ export function ModalAddTask({ isOpen, setIsOpen, handleAddTask }: ModalAddTaskP
           {...register('title')}
           type="text"
           placeholder="Nome da tarefa"
+          error={errors.title?.message}
         />
 
         <Input
           label="Data"
           {...register('date')}
           type="date"
+          error={errors.date?.message}
         />
 
         <TransactionTypeContainer>

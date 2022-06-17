@@ -42,7 +42,7 @@ const Dashboard: NextPage<DashboardProps> = ({ data, session }: DashboardProps) 
     const filteredTasks = data.filter(task => task.isFinished !== true)
     setFinishedTasks(filteredFinishedTasks)
     setTasks(filteredTasks)
-  }, [])
+  }, [data])
 
   async function handleAddTask(task: TaskType) {
     const response = await api.post('/tasks/new', {

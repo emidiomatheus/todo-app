@@ -4,7 +4,7 @@ export const Container = styled.header`
   width: 100%;
   max-width: 1048px;
   margin: 0 auto;
-  padding: 3rem 0;
+  padding: 3rem 1rem;
 
   .container {
     display: flex;
@@ -30,6 +30,7 @@ export const Container = styled.header`
 
 export const AccountButtonsContainer = styled.div`
   display: flex;
+  align-items: center;
   gap: 1rem;
 
   a {

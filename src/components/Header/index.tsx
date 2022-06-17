@@ -39,6 +39,14 @@ export function Header({ toggleTheme }: HeaderProps) {
             </>
           ): (
             <AccountButtonsContainer>
+              <Switch 
+                onChange={toggleTheme}
+                checked={title === 'light'}
+                checkedIcon={false}
+                uncheckedIcon={false}
+                onColor={colors.gray[900]}
+                offColor={colors.gray[800]}
+              />
               <SignInButton>
                 Entrar
               </SignInButton>

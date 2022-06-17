@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background-color: ${props => props.theme.colors.terciary};
+  background-color: ${props => props.theme.colors.secundary};
   padding: 1.5rem;
   border-radius: .25rem;
   width: 100%;
@@ -19,5 +19,10 @@ export const Container = styled.div`
     margin: auto 0;
     font-size: 4rem;
     font-weight: bold;
+  }
+
+  @media (max-width: 468px) {
+    width: 80vw;
+    flex: none;
   }
 `

@@ -4,8 +4,7 @@ export default {
   colors: {
     background: '#121212',
     primary: '#F0A202',
-    secundary: '#A5A5A5',
-    terciary: '#202021',
+    secundary: '#202021',
     text: '#FFFFFF',
     gray: {
       900: '#121212',

@@ -11,7 +11,6 @@ export const HeroSection = styled.div`
   height: 100vh;
 
   display: flex;
-  /* align-items: center; */
   gap: 2rem;
 `
 
@@ -83,35 +82,5 @@ export const ImageContainer = styled.div`
     bottom: 20rem;
     left: 0;
     z-index: -1;
-  }
-`
-
-export const Features = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 4rem;
-
-  & + & {
-    margin-top: 6rem;
-  }
-
-  .text {
-    width: 50%;
-    line-height: 1.5;
-
-    h2 {
-      margin-bottom: 1rem;
-    }
-  }
-
-  .image {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 50%;
-
-    img {
-      width: 100%;
-    }
   }
 `

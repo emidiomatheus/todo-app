@@ -15,7 +15,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     if (theme.title === 'dark') {
       setTheme(light)
       localStorage.setItem('theme', JSON.stringify(light))
-    } 
+    }
     
     if (theme.title === 'light') {
       setTheme(dark)

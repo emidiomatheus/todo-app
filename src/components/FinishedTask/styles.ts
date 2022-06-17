@@ -13,7 +13,7 @@ const color = {
 export const Container = styled.div<ContainerProps>`
   width: 100%;
   max-width: 1048px;
-  background-color: ${props => props.theme.colors.terciary};
+  background-color: ${props => props.theme.colors.secundary};
   opacity: .6;
   
   padding: 1rem 2rem;
@@ -44,6 +44,10 @@ export const Container = styled.div<ContainerProps>`
     text-align: center;
     width: 100px;
     opacity: .8;
+
+    @media (max-width: 468px) {
+      display: none;
+    }
   }
 
   .actions {
@@ -53,7 +57,7 @@ export const Container = styled.div<ContainerProps>`
 
     > i {
       cursor: pointer;
-      background-color: ${props => props.theme.colors.terciary};
+      background-color: ${props => props.theme.colors.secundary};
       padding: .5rem;
       border-radius: .25rem;
       transition: filter .2s;
@@ -64,6 +68,10 @@ export const Container = styled.div<ContainerProps>`
 
       &:active {
         filter: brightness(1.6)
+      }
+
+      @media (max-width: 468px) {
+        padding: 0;
       }
     }
   }

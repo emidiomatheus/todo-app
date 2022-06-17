@@ -12,35 +12,35 @@ export const Form = styled.form`
     margin-top: 1.5rem;
     
     button {
-    color: ${props => props.theme.colors.text};
-    font-size: 1rem;
-    border: 0;
-    height: 3rem;
-    padding: 0 2em;
-    border-radius: .25rem;
-  }
-
-  button + button {
-    margin-left: 1rem
-  }
-
-  button[type="button"] {
-    background-color: ${props => props.theme.colors.gray[400]};
-    transition: background-color .2s;
-
-    &:hover {
-      background-color: ${props => props.theme.colors.gray[500]}
+      color: ${props => props.theme.colors.text};
+      font-size: 1rem;
+      border: 0;
+      height: 3rem;
+      padding: 0 2em;
+      border-radius: .25rem;
     }
-  }
 
-  button[type="submit"] {
-    background-color: ${props => props.theme.colors.primary};
-    transition: filter .2s;
-
-    &:hover {
-      filter: brightness(1.125)
+    button + button {
+      margin-left: 1rem
     }
-  }
+
+    button[type="button"] {
+      background-color: ${props => props.theme.colors.gray[400]};
+      transition: background-color .2s;
+
+      &:hover {
+        background-color: ${props => props.theme.colors.gray[500]}
+      }
+    }
+
+    button[type="submit"] {
+      background-color: ${props => props.theme.colors.primary};
+      transition: filter .2s;
+
+      &:hover {
+        filter: brightness(1.125)
+      }
+    }
   }
 `
 

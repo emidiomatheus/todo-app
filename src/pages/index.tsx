@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import Image from "next/image";
 import { SignInButton } from "../components/SignInButton";
-import { Features, HeroSection, ImageContainer, MainContainer, TextContainer } from "./styles";
+import { HeroSection, ImageContainer, MainContainer, TextContainer } from "./styles";
 
 const Home: NextPage = () => {
   return (
@@ -21,28 +21,6 @@ const Home: NextPage = () => {
             <div></div>
           </ImageContainer>
         </HeroSection>
-        <Features>
-            <div className="text">
-              <h2>Diferencie suas tarefas por grau de urgência</h2>
-              <p>
-                Separe suas tarefas por: Importante, Circunstancial e Urgente. Dessa forma, é mais fácil não se perder com as suas prioridades.
-              </p>
-            </div>
-            <div className="image">
-              <img src="/images/tasks.png" />
-            </div>
-          </Features>
-          <Features>
-            <div className="image">
-              <img src="/images/summary.png" />
-            </div>
-            <div className="text">
-              <h2>Diferencie suas tarefas por grau de urgência</h2>
-              <p>
-                Separe suas tarefas por: Importante, Circunstancial e Urgente. Dessa forma, é mais fácil não se perder com as suas prioridades.
-              </p>
-            </div>
-          </Features>
       </MainContainer>
     </>
   )

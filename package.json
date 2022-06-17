@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.8.8",
     "@next-auth/mongodb-adapter": "^1.0.3",
     "@types/mongodb": "^4.0.7",
     "apexcharts": "^3.33.2",
@@ -25,7 +26,8 @@
     "react-icons": "^4.3.1",
     "react-modal": "^3.14.4",
     "react-switch": "^6.0.0",
-    "styled-components": "^5.3.3"
+    "styled-components": "^5.3.3",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@types/node": "17.0.21",

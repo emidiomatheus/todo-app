@@ -1,3 +1,4 @@
+/* eslint import/no-anonymous-default-export: [2, {"allowObject": true}] */
 export default {
   title: 'light',
 
@@ -5,7 +6,6 @@ export default {
     background: '#EFEFEF',
     primary: '#F0A202',
     secundary: '#FCFCFC',
-    terciary: '#FCFCFC',
     text: '#121212',
     gray: {
       900: '#121212',

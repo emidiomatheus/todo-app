@@ -24,13 +24,15 @@ interface ModalEditTaskProps {
 export function ModalEditTask({ isOpen, setIsOpen, editingTask, handleUpdateTask }: ModalEditTaskProps) {
   const [type, setType] = useState<'important' | 'urgent' | 'circumstantial'>(editingTask.type)
 
-  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm<FormData>()
+  const { register, handleSubmit, setValue, formState: { errors, isSubmitting } } = useForm<FormData>()
   const {data: session} = useSession()
   const userId = session?.user.id || ""
 
   useEffect(() => {
+    setValue('title', editingTask.title)
+    setValue('date', editingTask.date)
     setType(editingTask.type)
-  }, [editingTask])
+  }, [editingTask, setValue])
   
   const handleEditTask: SubmitHandler<FormData> = data => {
     const task = {...data, type, userId}

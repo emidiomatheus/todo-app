@@ -6,7 +6,7 @@ export const ContainerInput = styled.input`
     height: 3.5rem;
     border-radius: 0.25rem;
     border: 2px solid ${props => props.theme.colors.gray[400]};
-    background: ${props => props.theme.colors.terciary};
+    background: ${props => props.theme.colors.secundary};
     color: ${props => props.theme.colors.text};
     font-weight: 400;
     font-size: 1rem;
@@ -30,4 +30,10 @@ export const Label = styled.label`
   input + & {
     margin-top: 1.5rem;
   }
+`
+
+export const ErrorMessage = styled.p`
+  color: ${props => props.theme.colors.red};
+  
+  margin-bottom: .2rem;
 `

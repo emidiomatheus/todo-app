@@ -4,6 +4,7 @@ export const Container = styled.div`
   width: 100%;
   max-width: 1048px;
   margin: 4rem auto 2rem;
+  padding: 0 1rem;
 
   div.header {
     display: flex;
