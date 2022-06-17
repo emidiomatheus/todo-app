@@ -24,7 +24,8 @@ export const TextContainer = styled.div`
   }
 
   p {
-    color: var(--gray-300);
+    color: ${props => props.theme.colors.text};
+    opacity: .8;
     font-size: 1.125rem;
     line-height: 1.5;
     margin-bottom: 1.5rem;
