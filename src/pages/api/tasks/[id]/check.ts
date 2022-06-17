@@ -8,7 +8,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       const { db } = await connectToDatabase()
       const { id } = req.query
       await db.collection('tasks').updateOne(
-        { _id: new ObjectId(id) },
+        { _id: new ObjectId(String(id)) },
         {
           $set: { isFinished: true }
         }

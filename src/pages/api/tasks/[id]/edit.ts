@@ -17,7 +17,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
       
       await db.collection('tasks').replaceOne(
-        { _id: new ObjectId(id) },
+        { _id: new ObjectId(String(id)) },
         data
       )
       return res.status(200).json({_id: id, ...data})

@@ -7,7 +7,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const { db } = await connectToDatabase()
       const { id } = req.query
-      await db.collection('tasks').deleteOne({_id: new ObjectId(id)})
+      await db.collection('tasks').deleteOne({_id: new ObjectId(String(id))})
       return res.status(200).json({'ok': true})
     } catch (error) {
       return res.send(error)
