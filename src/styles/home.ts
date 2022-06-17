@@ -13,6 +13,10 @@ export const HeroSection = styled.div`
 
   display: flex;
   gap: 2rem;
+
+  @media (max-width: 468px) {
+    flex-direction: column;
+  }
 `
 
 export const TextContainer = styled.div`
@@ -53,6 +57,14 @@ export const TextContainer = styled.div`
       transform: translateY(-2px);
     }
   }
+
+  @media (max-width: 468px) {
+    width: 100%;
+    text-align: center;
+
+    display: flex;
+    flex-direction: column;
+  }
 `
 
 export const ImageContainer = styled.div`
@@ -84,5 +96,9 @@ export const ImageContainer = styled.div`
     bottom: 20rem;
     left: 0;
     z-index: -1;
+  }
+
+  @media (max-width: 468px) {
+    width: 100%;
   }
 `
