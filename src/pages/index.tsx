@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import Image from "next/image";
 import { SignInButton } from "../components/SignInButton";
-import { HeroSection, ImageContainer, MainContainer, TextContainer } from "./styles";
+import { HeroSection, ImageContainer, MainContainer, TextContainer } from "../styles/home";
 
 const Home: NextPage = () => {
   return (
