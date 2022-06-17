@@ -17,7 +17,7 @@ export function SignInButton({children}: SignInButtonProps) {
       return;
     }
 
-    signIn('google', {callbackUrl: 'http://localhost:3000/dashboard'})
+    signIn('google', {callbackUrl: '/dashboard'})
   }
   
   return (
