@@ -4,6 +4,7 @@ export const MainContainer = styled.main`
   width: 100%;
   max-width: 1048px;
   margin: 2rem auto 0;
+  padding: 0 1rem;
 `
 
 export const HeroSection = styled.div`
