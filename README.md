@@ -13,5 +13,11 @@ Software para gerenciamento de tarefas.
 - styled-components
 - React Hook Forms
 
+## 🔨 Features
+- Autenticação Social OAuth2 com Google
+- Obtém perfil do usuário do Google (name e e-mail)
+- Separa tarefas por níveis de prioridade
+- Possui gráfico de visão geral das tarefas
+
 ## 📜 Licença
 Este projeto está sob a licensa MIT.
