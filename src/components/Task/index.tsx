@@ -6,7 +6,6 @@ import { Container } from "./styles";
 interface TaskType {
   _id: string;
   title: string;
-  date: string;
   type: 'important' | 'urgent' | 'circumstantial';
   isFinished: boolean;
   userId: string;
@@ -20,13 +19,6 @@ interface TaskProps {
 }
 
 export function Task({ task, markAsFinished, handleDelete, handleEditTask }: TaskProps) {
-
-  const typeText = {
-    important: 'Importante',
-    urgent: 'Urgente',
-    circumstantial: 'Circunstancial'
-  }
-
   function setEditingTask(task: TaskType) {
     handleEditTask(task)
   }
@@ -35,13 +27,9 @@ export function Task({ task, markAsFinished, handleDelete, handleEditTask }: Tas
     handleDelete(id, isFinished)
   }
 
-  const formattedDate = format(new Date(task.date), 'dd MMM yyyy', {locale: ptBR})
-  
   return (
     <Container type={task.type}>
       <p className="title">{task.title}</p>
-      <time dateTime={task.date}>{formattedDate}</time>
-      <span>{typeText[task.type]}</span>
       <div className="actions">
         <i onClick={() => markAsFinished(task._id)} aria-label="Marcar tarefa como concluída" title="Marcar tarefa como concluída">
           <FiCheck />

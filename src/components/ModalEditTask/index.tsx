@@ -8,7 +8,6 @@ import { Form, RadioBox, TransactionTypeContainer } from './styles';
 interface FormData {
   _id: string;
   title: string;
-  date: string;
   type: 'important' | 'urgent' | 'circumstantial';
   isFinished: boolean;
   userId: string;
@@ -30,7 +29,6 @@ export function ModalEditTask({ isOpen, setIsOpen, editingTask, handleUpdateTask
 
   useEffect(() => {
     setValue('title', editingTask.title)
-    setValue('date', editingTask.date)
     setType(editingTask.type)
   }, [editingTask, setValue])
   
@@ -50,13 +48,6 @@ export function ModalEditTask({ isOpen, setIsOpen, editingTask, handleUpdateTask
           type="text"
           placeholder="Nome da tarefa"
           defaultValue={editingTask.title}
-        />
-
-        <Input
-          label="Data"
-          {...register("date")}
-          type="date"
-          defaultValue={editingTask.date}
         />
 
         <TransactionTypeContainer>

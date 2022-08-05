@@ -10,7 +10,6 @@ import { Form, RadioBox, TransactionTypeContainer } from './styles';
 interface FormData {
   _id: string;
   title: string;
-  date: string;
   type: 'important' | 'urgent' | 'circumstantial';
   isFinished: boolean;
   userId: string;
@@ -24,7 +23,6 @@ interface ModalAddTaskProps {
 
 const schema = yup.object({
   title: yup.string().required('Insira um título'),
-  date: yup.date().required('Insira uma data').min(new Date(), 'A data não pode ser anterior a hoje').typeError('Insira uma data'),
 })
 
 export function ModalAddTask({ isOpen, setIsOpen, handleAddTask }: ModalAddTaskProps) {
@@ -54,13 +52,6 @@ export function ModalAddTask({ isOpen, setIsOpen, handleAddTask }: ModalAddTaskP
           type="text"
           placeholder="Nome da tarefa"
           error={errors.title?.message}
-        />
-
-        <Input
-          label="Data"
-          {...register('date')}
-          type="date"
-          error={errors.date?.message}
         />
 
         <TransactionTypeContainer>
