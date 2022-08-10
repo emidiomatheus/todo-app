@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { connectToDatabase } from "../../../utils/mongodb";
+import { connectToDatabase } from "../../../lib/mongodb";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {

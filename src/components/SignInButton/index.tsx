@@ -17,7 +17,7 @@ export function SignInButton({children}: SignInButtonProps) {
       return;
     }
 
-    signIn('google', {callbackUrl: 'https://todo-app-blue-psi.vercel.app/dashboard'})
+    signIn('google', {callbackUrl: 'http://localhost:3000/dashboard'})
   }
   
   return (

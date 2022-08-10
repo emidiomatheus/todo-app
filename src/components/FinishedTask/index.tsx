@@ -1,14 +1,6 @@
-import { format } from 'date-fns';
-import { ptBR } from "date-fns/locale";
 import { FiTrash } from "react-icons/fi";
+import { TaskType } from "../../pages/dashboard";
 import { Container } from "./styles";
-
-interface TaskType {
-  _id: string;
-  title: string;
-  type: 'important' | 'urgent' | 'circumstantial';
-  isFinished: boolean;
-}
 
 interface TaskProps {
   task: TaskType;

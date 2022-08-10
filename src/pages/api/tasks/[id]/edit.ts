@@ -1,6 +1,6 @@
 import { ObjectId } from "mongodb";
 import { NextApiRequest, NextApiResponse } from "next";
-import { connectToDatabase } from "../../../../utils/mongodb";
+import { connectToDatabase } from "../../../../lib/mongodb";
 
 /* eslint import/no-anonymous-default-export: [2, {"allowArrowFunction": true}] */
 export default async (req: NextApiRequest, res: NextApiResponse) => {

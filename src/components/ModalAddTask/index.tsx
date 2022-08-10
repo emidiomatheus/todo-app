@@ -3,22 +3,15 @@ import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import * as yup from 'yup';
+import { TaskType } from '../../pages/dashboard';
 import { Input } from '../Input';
 import { Modal } from '../Modal';
 import { Form, RadioBox, TransactionTypeContainer } from './styles';
 
-interface FormData {
-  _id: string;
-  title: string;
-  type: 'important' | 'urgent' | 'circumstantial';
-  isFinished: boolean;
-  userId: string;
-}
-
 interface ModalAddTaskProps {
   isOpen: boolean;
   setIsOpen: () => void;
-  handleAddTask: (data: FormData) => void;
+  handleAddTask: (data: TaskType) => void;
 }
 
 const schema = yup.object({
@@ -27,13 +20,13 @@ const schema = yup.object({
 
 export function ModalAddTask({ isOpen, setIsOpen, handleAddTask }: ModalAddTaskProps) {
   const [type, setType] = useState<'important' | 'urgent' | 'circumstantial'>('important')
-  const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<FormData>({
+  const { register, handleSubmit, formState: { errors, isSubmitting }, reset } = useForm<TaskType>({
     resolver: yupResolver(schema)
   })
   const { data: session } = useSession()
   const userId = session?.user.id || ""
 
-  const handleCreateTask: SubmitHandler<FormData> = data => {
+  const handleCreateTask: SubmitHandler<TaskType> = data => {
     const task = {...data, type, userId}
     
     handleAddTask(task);
