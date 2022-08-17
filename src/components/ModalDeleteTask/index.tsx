@@ -27,15 +27,11 @@ export function ModalDeleteTask({ handleDeleteTask }: ModalDeleteTaskProps) {
             Esta ação não pode ser desfeita. Isso irá deletar a tarefa permanentemente.
           </AlertDialogDescription>
           <ButtonsContainer>
-            <AlertDialogCancel asChild>
-              <Button>
-                Cancelar
-              </Button>
+            <AlertDialogCancel>
+              Cancelar
             </AlertDialogCancel>
-            <AlertDialogAction asChild>
-              <Button onClick={handleDeleteTask}>
-                Sim, deletar
-              </Button>
+            <AlertDialogAction onClick={handleDeleteTask}>
+              Sim, deletar
             </AlertDialogAction>
           </ButtonsContainer>
         </AlertDialogContent>

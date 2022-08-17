@@ -4,11 +4,44 @@ import styled from 'styled-components'
 export const AlertDialogCancel = styled(AlertDialog.Cancel)`
   background-color: ${props => props.theme.colors.gray[300]};
   color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  border: 0;
+  border-radius: .25rem;
+  padding: .8rem 1.5rem;
+  
+  font-size: 1rem;
+  font-weight: 600;
+  transition: filter .2s;
+
+  &:hover {
+    filter: brightness(1.2)
+  }
 `
 
 export const AlertDialogAction = styled(AlertDialog.Action)`
   background-color: ${props => props.theme.colors.red};
   color: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  border: 0;
+  border-radius: .25rem;
+  padding: .8rem 1.5rem;
+  
+  font-size: 1rem;
+  font-weight: 600;
+  transition: filter .2s;
+
+  &:hover {
+    filter: brightness(1.2)
+  }
+  
 `
 
 export const ButtonsContainer = styled.div`

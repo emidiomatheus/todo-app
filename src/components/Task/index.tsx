@@ -39,11 +39,6 @@ export function Task({ task, markAsFinished, handleDelete, handleEditTask }: Tas
               icon={FiEdit}
               title="Editar tarefa"
             />
-            {/* <IconButton
-              onClick={() => handleDeleteTask(task._id, task.isFinished)}
-              icon={FiTrash}
-              title="Excluir tarefa"
-            /> */}
             <ModalDeleteTask handleDeleteTask={() => handleDeleteTask(task._id, task.isFinished)} />
           </div>
         ) : (
