@@ -1,7 +1,6 @@
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import { useState } from 'react'
 import { FiTrash } from 'react-icons/fi';
-import { Button } from '../Button';
 import { IconButton } from '../IconButton';
 import { AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogOverlay, AlertDialogTitle, ButtonsContainer } from './styles'
 

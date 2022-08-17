@@ -1,4 +1,4 @@
-import { FiCheck, FiEdit, FiTrash } from "react-icons/fi";
+import { FiCheck, FiEdit } from "react-icons/fi";
 import { TaskType } from "../../pages/dashboard";
 import { ActionsTask } from "../ActionsTask";
 import { IconButton } from "../IconButton";

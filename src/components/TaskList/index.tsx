@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import { TaskType } from "../../pages/dashboard";
 import { ModalAddTask } from "../ModalAddTask";
 import { Container } from "./styles";
