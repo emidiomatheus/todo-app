@@ -3,7 +3,7 @@ import { Box } from "./styles";
 
 interface IconButtonProps {
   icon: IconType
-  onClick: () => void;
+  onClick?: () => void;
   title: string;
 }
 
