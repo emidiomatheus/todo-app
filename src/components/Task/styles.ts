@@ -61,7 +61,7 @@ export const Container = styled.div<ContainerProps>`
       border-radius: .25rem;
       transition: filter .2s;
 
-      &:hover {
+      &:hover, &:focus {
         filter: brightness(1.3)
       }
 

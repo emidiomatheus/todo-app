@@ -1,4 +1,5 @@
 import { FiCheck, FiEdit, FiTrash } from "react-icons/fi";
+import { ActionsTask } from "../ActionsTask";
 import { Container } from "./styles";
 
 interface TaskType {
@@ -25,20 +26,32 @@ export function Task({ task, markAsFinished, handleDelete, handleEditTask }: Tas
     handleDelete(id, isFinished)
   }
 
+  const screenWidth = window.innerWidth;
+
   return (
     <Container type={task.type}>
       <p className="title">{task.title}</p>
-      <div className="actions">
-        <i onClick={() => markAsFinished(task._id)} aria-label="Marcar tarefa como concluída" title="Marcar tarefa como concluída">
-          <FiCheck />
-        </i>
-        <i onClick={() => setEditingTask(task)} aria-label="Editar tarefa" title="Editar tarefa" >
-          <FiEdit />
-        </i>
-        <i onClick={() => handleDeleteTask(task._id, task.isFinished)} aria-label="Exluir tarefa" title="Excluir tarefa">
-          <FiTrash />
-        </i>
-      </div>
+      {
+        screenWidth > 468 ? (
+          <div className="actions">
+            <i onClick={() => markAsFinished(task._id)} aria-label="Marcar tarefa como concluída" title="Marcar tarefa como concluída">
+              <FiCheck />
+            </i>
+            <i onClick={() => setEditingTask(task)} aria-label="Editar tarefa" title="Editar tarefa" >
+              <FiEdit />
+            </i>
+            <i onClick={() => handleDeleteTask(task._id, task.isFinished)} aria-label="Exluir tarefa" title="Excluir tarefa">
+              <FiTrash />
+            </i>
+          </div>
+        ) : (
+          <ActionsTask            
+            markAsFinished={() => markAsFinished(task._id)}
+            handleEditTask={() => setEditingTask(task)}
+            handleDelete={() => handleDeleteTask(task._id, task.isFinished)}
+          />
+        )
+      }
     </Container>
   )
 }

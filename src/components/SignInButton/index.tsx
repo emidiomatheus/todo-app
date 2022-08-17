@@ -1,7 +1,7 @@
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { ReactNode } from 'react';
-import { Box } from './styles';
+import { Button } from '../Button';
 
 interface SignInButtonProps {
   children: ReactNode;
@@ -21,8 +21,8 @@ export function SignInButton({children}: SignInButtonProps) {
   }
   
   return (
-    <Box type="button" onClick={handleSignIn}>
+    <Button type="button" onClick={handleSignIn}>
       {children}
-    </Box>  
+    </Button>  
   )
 }

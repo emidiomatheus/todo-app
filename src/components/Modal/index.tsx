@@ -1,21 +1,16 @@
-import ReactModal from "react-modal";
+import * as Dialog from '@radix-ui/react-dialog';
+import { ReactNode } from 'react';
 
 interface ModalProps {
+  children: ReactNode;
   isOpen: boolean;
   setIsOpen: () => void;
-  children: React.ReactNode
 }
 
 export function Modal({ children, isOpen, setIsOpen }: ModalProps) {
-  
   return (
-    <ReactModal
-      isOpen={isOpen}
-      onRequestClose={setIsOpen}
-      overlayClassName='react-modal-overlay'
-      className="react-modal-content"
-    >
+    <Dialog.Root modal open={isOpen} onOpenChange={setIsOpen}>
       {children}
-    </ReactModal>
+    </Dialog.Root>
   )
 }

@@ -11,6 +11,9 @@
   "dependencies": {
     "@hookform/resolvers": "^2.8.8",
     "@next-auth/mongodb-adapter": "^1.0.3",
+    "@radix-ui/react-dialog": "^1.0.0",
+    "@radix-ui/react-dropdown-menu": "^1.0.0",
+    "@radix-ui/react-switch": "^1.0.0",
     "@types/mongodb": "^4.0.7",
     "apexcharts": "^3.33.2",
     "axios": "^0.26.1",

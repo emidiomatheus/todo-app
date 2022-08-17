@@ -1,9 +1,12 @@
 import { useSession } from 'next-auth/react';
 import { useEffect, useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { Button } from '../Button';
 import { Input } from '../Input';
 import { Modal } from '../Modal';
-import { Form, RadioBox, TransactionTypeContainer } from './styles';
+import { ModalContent } from '../Modal/ModalContent';
+import { ModalTitle } from '../Modal/ModalTitle';
+import { Form, RadioBox, TransactionTypeContainer } from '../ModalAddTask/styles';
 
 interface FormData {
   _id: string;
@@ -40,48 +43,54 @@ export function ModalEditTask({ isOpen, setIsOpen, editingTask, handleUpdateTask
   
   return (
     <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
-      <Form onSubmit={handleSubmit(handleEditTask)}>
-        <h2>Editar tarefa</h2>
-        <Input
-          label="Título"
-          {...register('title')}
-          type="text"
-          placeholder="Nome da tarefa"
-          defaultValue={editingTask.title}
-        />
+      <ModalContent>
+        <ModalTitle>Editar tarefa</ModalTitle>
+        <Form onSubmit={handleSubmit(handleEditTask)}>
+          <Input
+            label="Título"
+            {...register('title')}
+            type="text"
+            placeholder="Nome da tarefa"
+            defaultValue={editingTask.title}
+          />
 
-        <TransactionTypeContainer>
-          <RadioBox
-            type="button"
-            activeColor="green"
-            isActive={type === 'important'}
-            onClick={() => setType('important')}
-          >
-            <span>Importante</span>
-          </RadioBox>
-          <RadioBox
-            type="button"
-            activeColor="yellow"
-            isActive={type === 'circumstantial'}
-            onClick={() => setType('circumstantial')}
-          >
-            <span>Circunstancial</span>
-          </RadioBox>
-          <RadioBox
-            type="button"
-            activeColor="red"
-            isActive={type ==='urgent'}
-            onClick={() => setType('urgent')}
-          >
-            <span>Urgente</span>
-          </RadioBox>
-        </TransactionTypeContainer>
+          <TransactionTypeContainer>
+            <RadioBox
+              type="button"
+              activeColor="green"
+              isActive={type === 'important'}
+              onClick={() => setType('important')}
+            >
+              <span>Importante</span>
+            </RadioBox>
+            <RadioBox
+              type="button"
+              activeColor="yellow"
+              isActive={type === 'circumstantial'}
+              onClick={() => setType('circumstantial')}
+            >
+              <span>Circunstancial</span>
+            </RadioBox>
+            <RadioBox
+              type="button"
+              activeColor="red"
+              isActive={type ==='urgent'}
+              onClick={() => setType('urgent')}
+            >
+              <span>Urgente</span>
+            </RadioBox>
+          </TransactionTypeContainer>
 
-        <div className="buttons">
-          <button type="button" onClick={setIsOpen}>Cancelar</button>
-          <button type="submit">Salvar alterações</button>
-        </div>
-      </Form>
+          <div className="buttons">
+            <Button type="button" onClick={setIsOpen} disabled={isSubmitting}>
+              Cancelar
+            </Button>
+            <Button type="submit" disabled={isSubmitting}>
+              Salvar
+            </Button>
+          </div>
+        </Form>
+      </ModalContent>
     </Modal>
   )
 }

@@ -2,17 +2,13 @@ import { getTasks } from '../lib/getTasks'
 import type { GetServerSideProps, NextPage } from 'next'
 import { getSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
-import ReactModal from 'react-modal'
 import { FinishedTask } from '../components/FinishedTask'
 import { FinishedTasksList } from '../components/FinishedTasksList'
-import { ModalAddTask } from '../components/ModalAddTask'
-import { ModalEditTask } from '../components/ModalEditTask'
 import { Summary } from '../components/Summary'
 import { Task } from '../components/Task'
 import { TaskList } from '../components/TaskList'
 import { api } from '../services/api'
-
-ReactModal.setAppElement("#__next")
+import { ModalEditTask } from '../components/ModalEditTask'
 
 export interface TaskType {
   _id: string;
@@ -30,7 +26,6 @@ const Dashboard: NextPage<DashboardProps> = ({ data }: DashboardProps) => {
   const [tasks, setTasks] = useState<TaskType[]>([])
   const [finishedTasks, setFinishedTasks] = useState<TaskType[]>([])
   const [editingTask, setEditingTask] = useState({} as TaskType)
-  const [isModalAddOpen, setIsModalAddOpen] = useState(false)
   const [isModalEditOpen, setIsModalEditOpen] = useState(false)
 
   useEffect(() => {
@@ -85,11 +80,6 @@ const Dashboard: NextPage<DashboardProps> = ({ data }: DashboardProps) => {
     setFinishedTasks([...finishedTasks, finishedTask])
     setTasks(tasksFiltered)
   }
-
-  function toggleModal() {
-    setIsModalAddOpen(!isModalAddOpen)
-  }
-  
   function toggleEditModal() {
     setIsModalEditOpen(!isModalEditOpen)
   }
@@ -103,17 +93,15 @@ const Dashboard: NextPage<DashboardProps> = ({ data }: DashboardProps) => {
     <>
       <main>
         <Summary finishedTasks={finishedTasks} tasks={tasks} />
-        <TaskList openModal={toggleModal}>
+        <TaskList handleAddTask={handleAddTask}>
           {tasks && tasks.map(task => (
-            !task.isFinished && (
-              <Task
+            <Task
               key={task._id}
               task={task}
               markAsFinished={handleMarkAsFinished}
               handleDelete={handleDelete}
               handleEditTask={handleEditTask}
             />
-            )
           ))}
         </TaskList>
         
@@ -130,11 +118,6 @@ const Dashboard: NextPage<DashboardProps> = ({ data }: DashboardProps) => {
           </FinishedTasksList>
         )}
       </main>
-        <ModalAddTask
-          isOpen={isModalAddOpen}
-          setIsOpen={toggleModal}
-          handleAddTask={handleAddTask}
-        />
         <ModalEditTask
           isOpen={isModalEditOpen}
           setIsOpen={toggleEditModal}
