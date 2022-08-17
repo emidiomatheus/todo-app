@@ -1,14 +1,8 @@
 import { FiCheck, FiEdit, FiTrash } from "react-icons/fi";
+import { TaskType } from "../../pages/dashboard";
 import { ActionsTask } from "../ActionsTask";
+import { IconButton } from "../IconButton";
 import { Container } from "./styles";
-
-interface TaskType {
-  _id: string;
-  title: string;
-  type: 'important' | 'urgent' | 'circumstantial';
-  isFinished: boolean;
-  userId: string;
-}
 
 interface TaskProps {
   task: TaskType;
@@ -34,15 +28,21 @@ export function Task({ task, markAsFinished, handleDelete, handleEditTask }: Tas
       {
         screenWidth > 468 ? (
           <div className="actions">
-            <i onClick={() => markAsFinished(task._id)} aria-label="Marcar tarefa como concluída" title="Marcar tarefa como concluída">
-              <FiCheck />
-            </i>
-            <i onClick={() => setEditingTask(task)} aria-label="Editar tarefa" title="Editar tarefa" >
-              <FiEdit />
-            </i>
-            <i onClick={() => handleDeleteTask(task._id, task.isFinished)} aria-label="Exluir tarefa" title="Excluir tarefa">
-              <FiTrash />
-            </i>
+            <IconButton
+              onClick={() => markAsFinished(task._id)}
+              icon={FiCheck}
+              title="Marcar tarefa como concluída"
+            />
+            <IconButton
+              onClick={() => setEditingTask(task)}
+              icon={FiEdit}
+              title="Editar tarefa"
+            />
+            <IconButton
+              onClick={() => handleDeleteTask(task._id, task.isFinished)}
+              icon={FiTrash}
+              title="Excluir tarefa"
+            />
           </div>
         ) : (
           <ActionsTask            

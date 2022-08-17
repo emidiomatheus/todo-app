@@ -20,6 +20,7 @@ export const SwitchThumb = styled(Switch.Thumb)`
   height: 1.6rem;
   border-radius: 999px;
   margin-left: 3px;
+  margin-bottom: 1px;
   transition: transform .2s;
 
   &[data-state="checked"] { 

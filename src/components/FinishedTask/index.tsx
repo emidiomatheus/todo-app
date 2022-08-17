@@ -1,5 +1,6 @@
 import { FiTrash } from "react-icons/fi";
 import { TaskType } from "../../pages/dashboard";
+import { IconButton } from "../IconButton";
 import { Container } from "./styles";
 
 interface TaskProps {
@@ -17,9 +18,11 @@ export function FinishedTask({ task, handleDelete }: TaskProps) {
     <Container type={task.type} >
       <p className="title">{task.title}</p>
       <div className="actions">
-        <i onClick={() => handleDeleteTask(task._id, task.isFinished)}>
-          <FiTrash aria-label="Exluir tarefa" title="Excluir tarefa" />
-        </i>
+        <IconButton
+          onClick={() => handleDeleteTask(task._id, task.isFinished)}
+          icon={FiTrash}
+          title="Excluir tarefa"
+        />
       </div>
     </Container>
   )

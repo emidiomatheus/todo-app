@@ -87,11 +87,20 @@ export function ModalAddTask({ handleAddTask }: ModalAddTaskProps) {
 
           <div className="buttons">
             <DialogTrigger asChild>
-              <Button type="button">
+              <Button
+                type="button"
+                disabled={isSubmitting}
+              >
                 Cancelar
               </Button>
             </DialogTrigger>
-            <Button type="submit">Adicionar</Button>
+            <Button
+              type="submit"
+              loading={isSubmitting}
+              disabled={isSubmitting}
+            >
+              Adicionar
+            </Button>
           </div>
         </Form>
       </ModalContent>

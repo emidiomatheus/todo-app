@@ -7,6 +7,8 @@ import { Modal } from '../Modal';
 import { ModalContent } from '../Modal/ModalContent';
 import { ModalTitle } from '../Modal/ModalTitle';
 import { Form, RadioBox, TransactionTypeContainer } from '../ModalAddTask/styles';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 interface FormData {
   _id: string;
@@ -23,10 +25,16 @@ interface ModalEditTaskProps {
   handleUpdateTask: (data: FormData) => void;
 }
 
+const schema = yup.object({
+  title: yup.string().required('Insira um título'),
+})
+
 export function ModalEditTask({ isOpen, setIsOpen, editingTask, handleUpdateTask }: ModalEditTaskProps) {
   const [type, setType] = useState<'important' | 'urgent' | 'circumstantial'>(editingTask.type)
 
-  const { register, handleSubmit, setValue, formState: { errors, isSubmitting } } = useForm<FormData>()
+  const { register, handleSubmit, setValue, formState: { errors, isSubmitting } } = useForm<FormData>({
+    resolver: yupResolver(schema)
+  })
   const {data: session} = useSession()
   const userId = session?.user.id || ""
 
@@ -37,7 +45,7 @@ export function ModalEditTask({ isOpen, setIsOpen, editingTask, handleUpdateTask
   
   const handleEditTask: SubmitHandler<FormData> = data => {
     const task = {...data, type, userId}
-    handleUpdateTask(task);
+    handleUpdateTask(task)
     setIsOpen()
   }
   
@@ -52,6 +60,7 @@ export function ModalEditTask({ isOpen, setIsOpen, editingTask, handleUpdateTask
             type="text"
             placeholder="Nome da tarefa"
             defaultValue={editingTask.title}
+            error={errors.title?.message}
           />
 
           <TransactionTypeContainer>
@@ -85,7 +94,11 @@ export function ModalEditTask({ isOpen, setIsOpen, editingTask, handleUpdateTask
             <Button type="button" onClick={setIsOpen} disabled={isSubmitting}>
               Cancelar
             </Button>
-            <Button type="submit" disabled={isSubmitting}>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              loading={isSubmitting}
+            >
               Salvar
             </Button>
           </div>
