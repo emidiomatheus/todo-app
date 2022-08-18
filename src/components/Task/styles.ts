@@ -50,3 +50,7 @@ export const Container = styled.div<ContainerProps>`
     gap: 1rem;
   }
 `
+
+export const FinishedTaskContainer = styled(Container)`
+  opacity: .6;
+`

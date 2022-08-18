@@ -18,7 +18,7 @@ export function Header({ toggleTheme }: HeaderProps) {
 
   const isHome = router.asPath === '/'
 
-  const { colors, title } = useTheme()
+  const { title } = useTheme()
   
   return (
     <Container>

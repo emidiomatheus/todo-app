@@ -29,17 +29,3 @@ export const DropdownContent = styled(DropdownMenu.Content)`
     width: 1rem;
   }
 `
-
-export const IconButton = styled.button`
-  border: 0;
-  outline: 0;
-  border-radius: .25rem;
-  padding: .25rem;
-
-  background-color: ${props => props.theme.colors.secundary};
-  transition: filter .2s;
-
-  &:active {
-    filter: brightness(1.3)
-  }
-`

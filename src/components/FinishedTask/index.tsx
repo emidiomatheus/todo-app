@@ -1,6 +1,6 @@
 import { TaskType } from "../../pages/dashboard";
 import { ModalDeleteTask } from "../ModalDeleteTask";
-import { Container } from "./styles";
+import { FinishedTaskContainer } from "../Task/styles";
 
 interface TaskProps {
   task: TaskType;
@@ -14,13 +14,13 @@ export function FinishedTask({ task, handleDelete }: TaskProps) {
   }
 
   return (
-    <Container type={task.type} >
+    <FinishedTaskContainer type={task.type} >
       <p className="title">{task.title}</p>
       <div className="actions">
         <ModalDeleteTask
           handleDeleteTask={() => handleDeleteTask(task._id, task.isFinished)}
         />
       </div>
-    </Container>
+    </FinishedTaskContainer>
   )
 }

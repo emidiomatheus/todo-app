@@ -1,6 +1,7 @@
 import * as AlertDialog from '@radix-ui/react-alert-dialog'
 import { useState } from 'react'
 import { FiTrash } from 'react-icons/fi';
+import { Button } from '../Button';
 import { IconButton } from '../IconButton';
 import { AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogOverlay, AlertDialogTitle, ButtonsContainer } from './styles'
 
@@ -26,11 +27,15 @@ export function ModalDeleteTask({ handleDeleteTask }: ModalDeleteTaskProps) {
             Esta ação não pode ser desfeita. Isso irá deletar a tarefa permanentemente.
           </AlertDialogDescription>
           <ButtonsContainer>
-            <AlertDialogCancel>
-              Cancelar
+            <AlertDialogCancel asChild>
+              <Button aria-label="Cancelar deleção da tarefa" type="button">
+                Cancelar
+              </Button>
             </AlertDialogCancel>
-            <AlertDialogAction onClick={handleDeleteTask}>
-              Sim, deletar
+            <AlertDialogAction asChild>
+              <Button aria-label="Confirmar deleção da tarefa" type="button" onClick={handleDeleteTask}>
+                Sim, deletar
+              </Button>
             </AlertDialogAction>
           </ButtonsContainer>
         </AlertDialogContent>

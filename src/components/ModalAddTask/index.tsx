@@ -42,7 +42,7 @@ export function ModalAddTask({ handleAddTask }: ModalAddTaskProps) {
   return (
     <Modal isOpen={isModalAddOpen} setIsOpen={() => setIsModalAddOpen(!isModalAddOpen)}>
       <DialogTrigger asChild>
-        <Button>
+        <Button type="button" aria-label="Nova tarefa" >
           Nova tarefa
           <FiPlus color="#FFF" />
         </Button>
@@ -89,6 +89,7 @@ export function ModalAddTask({ handleAddTask }: ModalAddTaskProps) {
             <DialogTrigger asChild>
               <Button
                 type="button"
+                aria-label="Cancelar"
                 disabled={isSubmitting}
               >
                 Cancelar

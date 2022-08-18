@@ -8,12 +8,11 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export const Button = ((
   { loading, children, ...rest }: ButtonProps
-) => {
-  return (
+) => (
     <Container {...rest}>
       {
         loading ? <Spinner /> : children
       }
     </Container>
   )
-})
+)
