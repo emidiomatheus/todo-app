@@ -1,7 +1,7 @@
 import { getTasks } from '../lib/getTasks'
 import type { GetServerSideProps, NextPage } from 'next'
 import { getSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { FinishedTask } from '../components/FinishedTask'
 import { FinishedTasksList } from '../components/FinishedTasksList'
 import { Summary } from '../components/Summary'
@@ -38,7 +38,7 @@ const Dashboard: NextPage<DashboardProps> = ({ data }: DashboardProps) => {
       ...task,
       isFinished: false,
     })
-    setTasks([...tasks, response.data])
+    setTasks(oldTasks => [...oldTasks, response.data])
   }
 
   async function handleUpdateTask(task: TaskType) {
@@ -54,11 +54,11 @@ const Dashboard: NextPage<DashboardProps> = ({ data }: DashboardProps) => {
 
       setTasks(tasksUpdated)
     } catch (error) {
-      console.log(error)
+      alert(`Houve um erro: ${error}`)
     }
   }
 
-  async function handleDelete(id: string, isFinished: boolean) {
+  const handleDelete = useCallback(async (id: string, isFinished: boolean) => {
     await api.delete(`/tasks/${id}/delete`)
 
     if (isFinished) {
@@ -69,25 +69,26 @@ const Dashboard: NextPage<DashboardProps> = ({ data }: DashboardProps) => {
 
     const tasksFiltered = tasks.filter(task => task._id !== id)
     setTasks(tasksFiltered)
-  }
+  }, [finishedTasks, tasks])
 
-  async function handleMarkAsFinished(id: string) {
+  const handleMarkAsFinished = useCallback((id: string) => {
     const finishedTask = tasks.find(task => task._id === id) as TaskType
     const tasksFiltered = tasks.filter(task => task._id !== id)
 
     api.put(`/tasks/${id}/check`)
 
-    setFinishedTasks([...finishedTasks, finishedTask])
+    setFinishedTasks(oldFinishedTasks => [...oldFinishedTasks, finishedTask])
     setTasks(tasksFiltered)
-  }
-  function toggleEditModal() {
-    setIsModalEditOpen(!isModalEditOpen)
-  }
+  }, [tasks])
 
-  function handleEditTask(task: TaskType) {
+  const toggleEditModal = useCallback(() => {
+    setIsModalEditOpen(!isModalEditOpen)
+  }, [isModalEditOpen])
+
+  const handleEditTask = useCallback((task: TaskType) => {
     setEditingTask({...task})
     setIsModalEditOpen(true)
-  }
+  }, [])
 
   return (
     <>

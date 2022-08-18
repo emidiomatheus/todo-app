@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { FiCheck, FiEdit } from "react-icons/fi";
 import { TaskType } from "../../pages/dashboard";
 import { ActionsTask } from "../ActionsTask";
@@ -12,7 +13,7 @@ interface TaskProps {
   handleEditTask: (task: TaskType) => void;
 }
 
-export function Task({ task, markAsFinished, handleDelete, handleEditTask }: TaskProps) {
+function TaskComponent({ task, markAsFinished, handleDelete, handleEditTask }: TaskProps) {
   function setEditingTask(task: TaskType) {
     handleEditTask(task)
   }
@@ -52,3 +53,5 @@ export function Task({ task, markAsFinished, handleDelete, handleEditTask }: Tas
     </Container>
   )
 }
+
+export const Task = memo(TaskComponent)
