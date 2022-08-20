@@ -1,7 +1,6 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { FiCheck, FiEdit, FiTrash, FiMoreVertical } from 'react-icons/fi';
-import { IconButton } from '../IconButton';
-import { DropdownContent, Option } from './styles';
+import { DropdownContent, DropdownTrigger, Option } from './styles';
 
 interface ActionsTaskProps {
   markAsFinished: () => void;
@@ -12,9 +11,9 @@ interface ActionsTaskProps {
 export function ActionsTask({ markAsFinished, handleDelete, handleEditTask }: ActionsTaskProps) {
   return (
     <DropdownMenu.Root>
-      <DropdownMenu.Trigger asChild>
-        <IconButton icon={FiMoreVertical} title="Ações da tarefa" />
-      </DropdownMenu.Trigger>
+      <DropdownTrigger>
+        <FiMoreVertical />
+      </DropdownTrigger>
 
       <DropdownMenu.Portal>
         <DropdownContent side="top" sideOffset={4} align="end">
