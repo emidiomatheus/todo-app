@@ -1,25 +1,18 @@
-import { format } from 'date-fns'
+import { getTasks } from '../lib/getTasks'
 import type { GetServerSideProps, NextPage } from 'next'
-import { Session } from 'next-auth'
 import { getSession } from 'next-auth/react'
-import { useEffect, useState } from 'react'
-import ReactModal from 'react-modal'
+import { useCallback, useEffect, useState } from 'react'
 import { FinishedTask } from '../components/FinishedTask'
 import { FinishedTasksList } from '../components/FinishedTasksList'
-import { ModalAddTask } from '../components/ModalAddTask'
-import { ModalEditTask } from '../components/ModalEditTask'
 import { Summary } from '../components/Summary'
 import { Task } from '../components/Task'
 import { TaskList } from '../components/TaskList'
 import { api } from '../services/api'
-import { connectToDatabase } from '../utils/mongodb'
+import { ModalEditTask } from '../components/ModalEditTask'
 
-ReactModal.setAppElement("#__next")
-
-interface TaskType {
+export interface TaskType {
   _id: string;
   title: string;
-  date: string;
   type: 'important' | 'urgent' | 'circumstantial';
   isFinished: boolean;
   userId: string;
@@ -27,29 +20,25 @@ interface TaskType {
 
 interface DashboardProps {
   data: TaskType[],
-  session: Session;
 }
 
-const Dashboard: NextPage<DashboardProps> = ({ data, session }: DashboardProps) => {
+const Dashboard: NextPage<DashboardProps> = ({ data }: DashboardProps) => {
   const [tasks, setTasks] = useState<TaskType[]>([])
   const [finishedTasks, setFinishedTasks] = useState<TaskType[]>([])
   const [editingTask, setEditingTask] = useState({} as TaskType)
-  const [isModalAddOpen, setIsModalAddOpen] = useState(false)
   const [isModalEditOpen, setIsModalEditOpen] = useState(false)
 
-  useEffect(() => {    
-    const filteredFinishedTasks = data.filter(task => task.isFinished === true)
-    const filteredTasks = data.filter(task => task.isFinished !== true)
-    setFinishedTasks(filteredFinishedTasks)
-    setTasks(filteredTasks)
+  useEffect(() => {
+    setTasks(data.filter(tasks => !tasks.isFinished))
+    setFinishedTasks(data.filter(tasks => tasks.isFinished))
   }, [data])
 
   async function handleAddTask(task: TaskType) {
-    const response = await api.post('/tasks/new', {
+    const response = await api.post<TaskType>('/tasks/new', {
       ...task,
       isFinished: false,
     })
-    setTasks([...tasks, response.data])
+    setTasks(oldTasks => [...oldTasks, response.data])
   }
 
   async function handleUpdateTask(task: TaskType) {
@@ -65,11 +54,11 @@ const Dashboard: NextPage<DashboardProps> = ({ data, session }: DashboardProps) 
 
       setTasks(tasksUpdated)
     } catch (error) {
-      console.log(error)
+      alert(`Houve um erro: ${error}`)
     }
   }
 
-  async function handleDelete(id: string, isFinished: boolean) {
+  const handleDelete = useCallback(async (id: string, isFinished: boolean) => {
     await api.delete(`/tasks/${id}/delete`)
 
     if (isFinished) {
@@ -80,37 +69,32 @@ const Dashboard: NextPage<DashboardProps> = ({ data, session }: DashboardProps) 
 
     const tasksFiltered = tasks.filter(task => task._id !== id)
     setTasks(tasksFiltered)
-  }
+  }, [finishedTasks, tasks])
 
-  async function handleMarkAsFinished(id: string) {
+  const handleMarkAsFinished = useCallback((id: string) => {
     const finishedTask = tasks.find(task => task._id === id) as TaskType
     const tasksFiltered = tasks.filter(task => task._id !== id)
 
     api.put(`/tasks/${id}/check`)
 
-    setFinishedTasks([...finishedTasks, finishedTask])
+    setFinishedTasks(oldFinishedTasks => [...oldFinishedTasks, finishedTask])
     setTasks(tasksFiltered)
-  }
+  }, [tasks])
 
-  function toggleModal() {
-    setIsModalAddOpen(!isModalAddOpen)
-  }
-  
-  function toggleEditModal() {
+  const toggleEditModal = useCallback(() => {
     setIsModalEditOpen(!isModalEditOpen)
-  }
+  }, [isModalEditOpen])
 
-  function handleEditTask(task: TaskType) {
-    const date = format(new Date(task.date), 'yyyy-MM-dd')
-    setEditingTask({...task, date})
+  const handleEditTask = useCallback((task: TaskType) => {
+    setEditingTask({...task})
     setIsModalEditOpen(true)
-  }
+  }, [])
 
   return (
     <>
       <main>
         <Summary finishedTasks={finishedTasks} tasks={tasks} />
-        <TaskList openModal={toggleModal}>
+        <TaskList handleAddTask={handleAddTask}>
           {tasks && tasks.map(task => (
             <Task
               key={task._id}
@@ -135,11 +119,6 @@ const Dashboard: NextPage<DashboardProps> = ({ data, session }: DashboardProps) 
           </FinishedTasksList>
         )}
       </main>
-        <ModalAddTask
-          isOpen={isModalAddOpen}
-          setIsOpen={toggleModal}
-          handleAddTask={handleAddTask}
-        />
         <ModalEditTask
           isOpen={isModalEditOpen}
           setIsOpen={toggleEditModal}
@@ -152,36 +131,25 @@ const Dashboard: NextPage<DashboardProps> = ({ data, session }: DashboardProps) 
 
 export default Dashboard
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const session = await getSession(ctx)
+export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+  const session = await getSession({ req })
 
   if (!session) {
-    ctx.res.writeHead(302, { Location: '/' })
-    ctx.res.end();
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      }
+    }
   }
 
-  const { db } = await connectToDatabase()
-  
-  const userId = session?.user.id
-  const data = await db.collection('tasks').find({userId: userId}).toArray()
+  const data = await getTasks(session.user.id)
 
-  const tasks: TaskType[] = JSON.parse(JSON.stringify(data))
-
-  const parsedTasks = tasks.map(task => {
-    return { 
-      _id: task._id,
-      title: task.title,
-      date: task.date,
-      type: task.type,
-      isFinished: task.isFinished,
-      userId: task.userId,
-    }
-  })
+  const tasks = JSON.parse(JSON.stringify(data))
 
   return {
     props: {
-      data: parsedTasks,
-      session
+      data: tasks
     }
   }
 }

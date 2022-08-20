@@ -15,15 +15,6 @@ export const Container = styled.header`
       display: flex;
       align-items: center;
       gap: 1.75rem;
-
-      svg {
-        cursor: pointer;
-        transition: filter .2s;
-
-        &:hover {
-          filter: brightness(2)
-        }
-      }
     }
   }
 `

@@ -1,10 +1,11 @@
 import { signOut, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { FiLogOut } from 'react-icons/fi';
-import Switch from 'react-switch';
 import { useTheme } from 'styled-components';
+import { IconButton } from '../IconButton';
 import { Logo } from '../Logo';
 import { SignInButton } from '../SignInButton';
+import { Switch } from '../Switch';
 import { AccountButtonsContainer, Container } from "./styles";
 
 interface HeaderProps {
@@ -17,7 +18,7 @@ export function Header({ toggleTheme }: HeaderProps) {
 
   const isHome = router.asPath === '/'
 
-  const { colors, title } = useTheme()
+  const { title } = useTheme()
   
   return (
     <Container>
@@ -27,26 +28,12 @@ export function Header({ toggleTheme }: HeaderProps) {
           {!isHome && session ? (
             <>
               <span>{`Olá, ${session.user?.name?.split(" ")[0]}!`}</span>
-              <Switch 
-                onChange={toggleTheme}
-                checked={title === 'light'}
-                checkedIcon={false}
-                uncheckedIcon={false}
-                onColor={colors.gray[900]}
-                offColor={colors.gray[800]}
-              />
-              <FiLogOut onClick={() => signOut()} color="#505050" aria-label="Sair" title="Sair" />
+              <Switch toggleTheme={toggleTheme} checked={title === 'light'} />
+              <IconButton icon={FiLogOut} onClick={() => signOut()} aria-label="Sair" title="Sair" />
             </>
           ): (
             <AccountButtonsContainer>
-              <Switch 
-                onChange={toggleTheme}
-                checked={title === 'light'}
-                checkedIcon={false}
-                uncheckedIcon={false}
-                onColor={colors.gray[900]}
-                offColor={colors.gray[800]}
-              />
+              <Switch toggleTheme={toggleTheme} checked={title === 'light'} />
               <SignInButton>
                 Entrar
               </SignInButton>

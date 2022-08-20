@@ -1,15 +1,10 @@
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
-import { FiCheck, FiEdit, FiTrash } from "react-icons/fi";
+import { memo } from "react";
+import { FiCheck, FiEdit } from "react-icons/fi";
+import { TaskType } from "../../pages/dashboard";
+import { ActionsTask } from "../ActionsTask";
+import { IconButton } from "../IconButton";
+import { ModalDeleteTask } from "../ModalDeleteTask";
 import { Container } from "./styles";
-
-interface TaskType {
-  _id: string;
-  title: string;
-  type: 'important' | 'urgent' | 'circumstantial';
-  isFinished: boolean;
-  userId: string;
-}
 
 interface TaskProps {
   task: TaskType;
@@ -18,7 +13,7 @@ interface TaskProps {
   handleEditTask: (task: TaskType) => void;
 }
 
-export function Task({ task, markAsFinished, handleDelete, handleEditTask }: TaskProps) {
+function TaskComponent({ task, markAsFinished, handleDelete, handleEditTask }: TaskProps) {
   function setEditingTask(task: TaskType) {
     handleEditTask(task)
   }
@@ -27,20 +22,36 @@ export function Task({ task, markAsFinished, handleDelete, handleEditTask }: Tas
     handleDelete(id, isFinished)
   }
 
+  const screenWidth = window.innerWidth;
+
   return (
     <Container type={task.type}>
       <p className="title">{task.title}</p>
-      <div className="actions">
-        <i onClick={() => markAsFinished(task._id)} aria-label="Marcar tarefa como concluída" title="Marcar tarefa como concluída">
-          <FiCheck />
-        </i>
-        <i onClick={() => setEditingTask(task)} aria-label="Editar tarefa" title="Editar tarefa" >
-          <FiEdit />
-        </i>
-        <i onClick={() => handleDeleteTask(task._id, task.isFinished)} aria-label="Exluir tarefa" title="Excluir tarefa">
-          <FiTrash />
-        </i>
-      </div>
+      {
+        screenWidth > 468 ? (
+          <div className="actions">
+            <IconButton
+              onClick={() => markAsFinished(task._id)}
+              icon={FiCheck}
+              title="Marcar tarefa como concluída"
+            />
+            <IconButton
+              onClick={() => setEditingTask(task)}
+              icon={FiEdit}
+              title="Editar tarefa"
+            />
+            <ModalDeleteTask handleDeleteTask={() => handleDeleteTask(task._id, task.isFinished)} />
+          </div>
+        ) : (
+          <ActionsTask            
+            markAsFinished={() => markAsFinished(task._id)}
+            handleEditTask={() => setEditingTask(task)}
+            handleDelete={() => handleDeleteTask(task._id, task.isFinished)}
+          />
+        )
+      }
     </Container>
   )
 }
+
+export const Task = memo(TaskComponent)

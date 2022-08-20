@@ -1,22 +1,20 @@
 import { ReactNode } from "react";
-import { FiPlus } from "react-icons/fi";
-import { Container, NewTaskButton } from "./styles";
+import { TaskType } from "../../pages/dashboard";
+import { ModalAddTask } from "../ModalAddTask";
+import { Container } from "./styles";
 
 interface TasksProps {
   children: ReactNode;
-  openModal: () => void;
+  handleAddTask: (data: TaskType) => void;
 }
 
-export function TaskList({ children , openModal }: TasksProps) {
+export function TaskList({ children , handleAddTask }: TasksProps) {
   
   return (
     <Container>
       <div className="header">
         <span>Tarefas</span>
-        <NewTaskButton onClick={openModal}>
-            Nova tarefa
-          <FiPlus color="#fff" />
-        </NewTaskButton>
+        <ModalAddTask handleAddTask={handleAddTask} />
       </div>
       {children}
     </Container>

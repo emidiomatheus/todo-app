@@ -19,25 +19,3 @@ export const Container = styled.div`
     }
   }
 `
-
-export const NewTaskButton = styled.button`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-
-  background-color: ${props => props.theme.colors.primary};
-  color: ${props => props.theme.colors.text};
-  font-weight: 600;
-  font-size: 1rem;
-  line-height: .75;
-  border: none;
-  max-height: 8rem;
-  border-radius: .25rem;
-  padding: .8rem 1.5rem;
-
-  transition: filter .2s ease-out;
-
-  &:hover {
-    filter: brightness(1.125);
-  }
-`

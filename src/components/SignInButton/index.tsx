@@ -1,28 +1,31 @@
 import { signIn, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { ReactNode } from 'react';
-import { Box } from './styles';
+import { ReactNode, useState } from 'react';
+import { Button } from '../Button';
 
 interface SignInButtonProps {
   children: ReactNode;
 }
 
 export function SignInButton({children}: SignInButtonProps) {
+  const [loading, setLoading] = useState(false);
   const {data: session} = useSession()
   const router = useRouter()
   
   function handleSignIn() {
+    setLoading(true)
+
     if (session) {
       router.push('/dashboard')
       return;
     }
 
-    signIn('google', {callbackUrl: 'https://todo-app-blue-psi.vercel.app/dashboard'})
+    signIn('google', {callbackUrl: '/dashboard'})
   }
   
   return (
-    <Box type="button" onClick={handleSignIn}>
+    <Button type="button" onClick={handleSignIn} loading={loading}>
       {children}
-    </Box>  
+    </Button>  
   )
 }

@@ -32,11 +32,6 @@ export const Container = styled.div<ContainerProps>`
     width: 40%;
   }
 
-  time {
-    color: ${props => props.theme.colors.text};
-    text-transform: capitalize;
-  }
-
   span {
     color: ${props => color[props.type]};
     font-weight: 400;
@@ -53,25 +48,9 @@ export const Container = styled.div<ContainerProps>`
     display: flex;
     align-items: center;
     gap: 1rem;
-
-    > i {
-      cursor: pointer;
-      background-color: ${props => props.theme.colors.secundary};
-      padding: .5rem;
-      border-radius: .25rem;
-      transition: filter .2s;
-
-      &:hover {
-        filter: brightness(1.3)
-      }
-
-      &:active {
-        filter: brightness(1.6)
-      }
-
-      @media (max-width: 468px) {
-        padding: 0;
-      }
-    }
   }
+`
+
+export const FinishedTaskContainer = styled(Container)`
+  opacity: .6;
 `

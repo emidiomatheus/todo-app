@@ -1,14 +1,7 @@
-import { format } from 'date-fns';
-import { ptBR } from "date-fns/locale";
-import { FiTrash } from "react-icons/fi";
-import { Container } from "./styles";
-
-interface TaskType {
-  _id: string;
-  title: string;
-  type: 'important' | 'urgent' | 'circumstantial';
-  isFinished: boolean;
-}
+import { memo } from "react";
+import { TaskType } from "../../pages/dashboard";
+import { ModalDeleteTask } from "../ModalDeleteTask";
+import { FinishedTaskContainer } from "../Task/styles";
 
 interface TaskProps {
   task: TaskType;
@@ -16,19 +9,21 @@ interface TaskProps {
   handleDelete: (id: string, isFinished: boolean) => void;
 }
 
-export function FinishedTask({ task, handleDelete }: TaskProps) {
+function FinishedTaskComponent({ task, handleDelete }: TaskProps) {
   function handleDeleteTask(id: string, isFinished: boolean) {
     handleDelete(id, isFinished)
   }
 
   return (
-    <Container type={task.type} >
+    <FinishedTaskContainer type={task.type} >
       <p className="title">{task.title}</p>
       <div className="actions">
-        <i onClick={() => handleDeleteTask(task._id, task.isFinished)}>
-          <FiTrash aria-label="Exluir tarefa" title="Excluir tarefa" />
-        </i>
+        <ModalDeleteTask
+          handleDeleteTask={() => handleDeleteTask(task._id, task.isFinished)}
+        />
       </div>
-    </Container>
+    </FinishedTaskContainer>
   )
 }
+
+export const FinishedTask = memo(FinishedTaskComponent)

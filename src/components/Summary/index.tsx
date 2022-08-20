@@ -1,16 +1,9 @@
 import { ApexOptions } from "apexcharts";
 import dynamic from "next/dynamic";
 import { useTheme } from "styled-components";
+import { TaskType } from "../../pages/dashboard";
 import { Card } from "../Card";
 import { Container } from "./styles";
-
-interface TaskType {
-  _id: string;
-  title: string;
-  date: string;
-  type: 'important' | 'urgent' | 'circumstantial';
-  isFinished: boolean;
-}
 
 interface SummaryProps {
   tasks: TaskType[];

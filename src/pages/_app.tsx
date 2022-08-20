@@ -33,7 +33,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <NextAuthProvider session={pageProps.session}>
       <ThemeProvider theme={theme}>
-        <IconContext.Provider value={{ color: 'var(--gray-300)', size: '24px' }}>
+        <IconContext.Provider value={{ color: '#a5a5a5', size: '24px' }}>
           <Header toggleTheme={toggleTheme} />
           <Component {...pageProps} />
         </IconContext.Provider>

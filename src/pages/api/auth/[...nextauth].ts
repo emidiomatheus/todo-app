@@ -2,7 +2,7 @@ import { MongoDBAdapter } from "@next-auth/mongodb-adapter"
 import type { NextApiRequest, NextApiResponse } from "next"
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
-import { connectToDatabase } from "../../../utils/mongodb"
+import { connectToDatabase } from "../../../lib/mongodb"
 
 export default async function auth(req: NextApiRequest, res: NextApiResponse) {
   const { client } = await connectToDatabase()
