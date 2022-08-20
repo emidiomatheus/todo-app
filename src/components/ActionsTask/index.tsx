@@ -1,6 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { FiCheck, FiEdit, FiTrash, FiMoreVertical } from 'react-icons/fi';
-import { IconButton } from '../IconButton';
 import { DropdownContent, DropdownTrigger, Option } from './styles';
 
 interface ActionsTaskProps {
