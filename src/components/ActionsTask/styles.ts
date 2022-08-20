@@ -29,3 +29,20 @@ export const DropdownContent = styled(DropdownMenu.Content)`
     width: 1rem;
   }
 `
+
+export const DropdownTrigger = styled(DropdownMenu.Trigger)`
+  background-color: ${props => props.theme.colors.secundary};
+  border: 0;
+  border-radius: .25rem;
+  padding: .5rem;
+
+  transition: filter .2s;
+
+  &:hover, &:focus {
+    filter: brightness(1.3)
+  }
+
+  &:active {
+    filter: brightness(1.6)
+  }
+`
