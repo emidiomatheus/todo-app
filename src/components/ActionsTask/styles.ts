@@ -1,5 +1,4 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { darken } from "polished";
 import styled from "styled-components";
 
 export const Option = styled.div`
@@ -13,6 +12,10 @@ export const Option = styled.div`
   &:hover, &:focus, &:active {
     background-color: ${props => props.theme.colors.gray[300]};
     color: ${props => props.theme.colors.background}
+  }
+
+  button {
+    padding: 0;
   }
 `
 

@@ -1,5 +1,7 @@
+import { AlertDialogTrigger } from '@radix-ui/react-alert-dialog';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { FiCheck, FiEdit, FiTrash, FiMoreVertical } from 'react-icons/fi';
+import { ModalDeleteTask } from '../ModalDeleteTask';
 import { DropdownContent, DropdownTrigger, Option } from './styles';
 
 interface ActionsTaskProps {
@@ -31,12 +33,14 @@ export function ActionsTask({ markAsFinished, handleDelete, handleEditTask }: Ac
             </Option>
           </DropdownMenu.Item>
 
-          <DropdownMenu.Item onSelect={handleDelete}>
-            <Option>
-              Excluir Tarefa
-              <FiTrash />
-            </Option>
-          </DropdownMenu.Item>
+          <ModalDeleteTask handleDeleteTask={handleDelete}>
+            <AlertDialogTrigger asChild>
+              <Option>
+                Excluir Tarefa
+                <FiTrash />
+              </Option>
+            </AlertDialogTrigger>
+          </ModalDeleteTask>
         </DropdownContent>
       </DropdownMenu.Portal>
 
