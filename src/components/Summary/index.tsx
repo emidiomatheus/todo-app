@@ -59,7 +59,7 @@ export function Summary({ tasks, finishedTasks }: SummaryProps) {
     <Container>
       <div className="cards" >
         <Card title="Tarefas concluídas" metrics={totalFinishedTasks} />
-        <Card title="Tarefas não concluídas" metrics={notFinishedTasks} />
+        <Card title="Tarefas pendentes" metrics={notFinishedTasks} />
         <Card title="Visão geral">
           <Chart
             options={

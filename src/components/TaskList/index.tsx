@@ -13,7 +13,7 @@ export function TaskList({ children , handleAddTask }: TasksProps) {
   return (
     <Container>
       <div className="header">
-        <span>Tarefas</span>
+        <span>Tarefas pendentes</span>
         <ModalAddTask handleAddTask={handleAddTask} />
       </div>
       {children}
