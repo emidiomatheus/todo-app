@@ -9,8 +9,6 @@ export const MainContainer = styled.main`
 
 export const HeroSection = styled.div`
   width: 100%;
-  height: 100vh;
-
   display: flex;
   gap: 2rem;
 
@@ -93,9 +91,13 @@ export const ImageContainer = styled.div`
     background-color: ${props => props.theme.colors.primary};
     filter: blur(100px);
     position: absolute;
-    bottom: 20rem;
+    bottom: 1rem;
     left: 0;
     z-index: -1;
+
+    @media (max-width: 468px) {
+      bottom: 15rem;
+    }
   }
 
   @media (max-width: 468px) {
