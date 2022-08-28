@@ -9,6 +9,7 @@ import { Task } from '../components/Task'
 import { TaskList } from '../components/TaskList'
 import { api } from '../services/api'
 import { ModalEditTask } from '../components/ModalEditTask'
+import Head from 'next/head'
 
 export interface TaskType {
   _id: string;
@@ -92,6 +93,9 @@ const Dashboard: NextPage<DashboardProps> = ({ data }: DashboardProps) => {
 
   return (
     <>
+      <Head>
+        <title>to.do | Dashboard</title>
+      </Head>
       <main>
         <Summary finishedTasks={finishedTasks} tasks={tasks} />
         <TaskList handleAddTask={handleAddTask}>

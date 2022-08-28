@@ -1,4 +1,5 @@
 import { NextPage } from "next";
+import Head from "next/head";
 import Image from "next/image";
 import { SignInButton } from "../components/SignInButton";
 import { HeroSection, ImageContainer, MainContainer, TextContainer } from "../styles/home";
@@ -6,6 +7,9 @@ import { HeroSection, ImageContainer, MainContainer, TextContainer } from "../st
 const Home: NextPage = () => {
   return (
     <>
+      <Head>
+        <title>to.do | Seu gerenciador de tarefas</title>
+      </Head>
       <MainContainer>
         <HeroSection>
           <TextContainer>
